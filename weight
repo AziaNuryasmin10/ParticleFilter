@@ -22,3 +22,21 @@ def compute_weights(errors):
     y= np.nean(particles[:,1])
     
     return particles, [int(x), int(y)]
+    
+    #one single pixel
+    particles = initialize_particles()
+
+
+for frame in get_frames(VFILENAME):
+    if frame is None: break
+    particles = apply_velocity(particles)
+    particles = enforce_edges(particles)
+    errors = compute_errors(particles, frame)
+    weights = compute_weights(errors)
+    particles, location = resample(particles, weights)
+
+    terminate = display(frame, particles, location)
+    if terminate:
+        break
+
+cv2.destroyAllWindows()

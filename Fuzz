@@ -1,0 +1,69 @@
+#generate gaussian noise
+POS_SIGMA = 0.75
+VEL_SIGMA = 0.1
+
+def apply_noise(particles):
+    noise= np.concatenate(
+    (
+        np.random.normal(0.0, POS_SIGMA, (NUM_PARTICLES,1)),
+        np.random.normal(0.0, POS_SIGMA, (NUM_PARTICLES,1)),
+        np.random.normal(0.0, VEL_SIGMA, (NUM_PARTICLES,1)),
+        np.random.normal(0.0, VEL_SIGMA, (NUM_PARTICLES,1))
+    
+    ),
+    axis=1)
+    
+    particles += noise
+    return particles
+    
+    #standard deviation
+    
+   particles = initialize_particles()
+
+for frame in get_frames(VFILENAME):
+    if frame is None: break
+
+    particles = apply_velocity(particles)
+    particles = enforce_edges(particles)
+    errors = compute_errors(particles, frame)
+    weights = compute_weights(errors)
+    particles, location = resample(particles, weights)
+    particles = apply_noise(particles)
+    terminate = display(frame, particles, location)
+    if terminate:
+        break
+cv2.destroyAllWindows()
+
+#squaring weight
+def compute_weights(errors):
+    weights = np.max(errors) - errors
+    
+    weights[
+        (particles[:,0]==0) |
+        (particles[:,0]==frame_width-1) |
+        (particles[:,1]==0) |
+        (particles[:,1]==frame_height-1) ] = 0  
+    
+    weights = weights**2
+    
+    return weights
+    
+    #increase power of weight by 8
+    def compute_weights(errors):
+    weights = np.max(errors) - errors
+    
+    weights[
+        (particles[:,0]==0) |
+        (particles[:,0]==frame_width-1) |
+        (particles[:,1]==0) |
+        (particles[:,1]==frame_height-1) ] = 0  
+    
+    weights = weights**8
+    
+    return weights
+    
+    
+    
+
+
+    

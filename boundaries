@@ -1,0 +1,21 @@
+def enforce_edges(particles):
+    for i in range(NUM_PARTICLES):
+        particles[i,0] = max(0,min(frame_width-1, particles[i,0]))
+        particles[i,1] = max(0,min(frame_height-1, particles[i,1]))
+    return particles
+    
+    #display using below
+    
+    location = []
+particles = initialize_particles()
+
+
+for frame in get_frames(VFILENAME):
+    if frame is None: break
+    particles = apply_velocity(particles)
+    particles = enforce_edges(particles)
+    terminate = display(frame, particles, location)
+    if terminate:
+        break
+
+cv2.destroyAllWindows()      

@@ -11,4 +11,4 @@ for frame in get_frames(VFILENAME):
     if terminate:
         break
 
-cv2.destroyAllWindows(
+cv2.destroyAllWindows()

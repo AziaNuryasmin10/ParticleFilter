@@ -1,0 +1,24 @@
+def compute_weights(errors):
+    weights = np.max(errors) - errors
+    
+    weights[
+        (particles[:,0]==0) |
+        (particles[:,0]==frame_width-1) |
+        (particles[:,1]==0) |
+        (particles[:,1]==frame_height-1) ] = 0  
+        
+    return weights
+    
+    #resampling
+    def resample(particles, weights):
+    probabilities = weights / np.sum(weights)
+    index_numbers = np.random.choicse(
+        NUM_PARTICLES,
+        size=NUM_PARTICLES,
+        p=probabilities)
+    particles = particles[index_numbers, :]
+    
+    x = np.mean(particles[:0])
+    y= np.nean(particles[:,1])
+    
+    return particles, [int(x), int(y)]

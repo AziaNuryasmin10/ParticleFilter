@@ -1,0 +1,14 @@
+#particle moving according to their velocity
+location = []
+particles = initialize_particles()
+
+
+for frame in get_frames(VFILENAME):
+    if frame is None: break
+    particles = apply_velocity(particles)
+
+    terminate = display(frame, particles, location)
+    if terminate:
+        break
+
+cv2.destroyAllWindows(

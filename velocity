@@ -1,0 +1,8 @@
+NUM_PARTICLES = 5000
+VEL_RANGE = 0.5
+
+def initialize_particles():
+    particles = np.random.rand(NUM_PARTICLES,4)
+    particles = particles * np.array((frame_width,frame_height, VEL_RANGE,VEL_RANGE))
+    particles[:,2:4] -= VEL_RANGE/2.0
+    return particles

@@ -1,0 +1,12 @@
+TARGET_COLOR = np.array((66,63, 105))
+
+def compute_errors(particles, frame):
+    
+    errors = np.zeros(NUM_PARTICLES)
+    for i in range(NUM_PARTICLES):
+        x = int(particles[i,0])
+        y= int(particles[i,1])
+        pixel_color = frame[y, x, :]
+        errors[i] = np.sum((TARGET_COLOR - pixel_color)**2)
+    
+    return errors

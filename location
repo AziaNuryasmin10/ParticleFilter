@@ -1,0 +1,15 @@
+def display(frame, particles, location):
+    if len(particles)> 0:
+        for i in range(NUM_PARTICLES):
+            x = int(particles[i,0])
+            y = int(particles[i,1])
+            cv2.circle(frame,(x,y),1,(0,255,0),1)
+    if len(location) > 0:
+        cv2.circle(frame,location,15,(0,0,255),5)
+    cv2.imshow('frame', frame)
+    #stop the video if pressing the escape button
+    if cv2.waitKey(30)==27:
+        if cv2.waitKey(0)==27:
+            return True 
+
+    return False

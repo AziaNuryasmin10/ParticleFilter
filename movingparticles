@@ -1,0 +1,5 @@
+def apply_velocity(particles):
+    particles[:,0] += particles[:,2]
+    particles[:,1] += particles[:,3]
+
+    return particles
